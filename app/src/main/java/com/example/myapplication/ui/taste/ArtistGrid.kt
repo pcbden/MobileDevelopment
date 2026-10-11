@@ -1,0 +1,31 @@
+package com.example.myapplication.ui.taste
+
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+
+@Composable
+fun ArtistGrid(
+    artists: List<Musician>,
+    likedIds: Set<Int>,
+    onLikeClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(3),
+        contentPadding = PaddingValues(8.dp),
+        modifier = modifier
+    ) {
+        items(artists, key = { it.id }) { artist ->
+            ArtistCard(
+                artist = artist,
+                liked = artist.id in likedIds,
+                onLikeClick = { onLikeClick(artist.id) }
+            )
+        }
+    }
+}
